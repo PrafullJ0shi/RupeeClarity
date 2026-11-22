@@ -1,0 +1,7 @@
+# Build outputs
+rupeeclarity
+*.exe
+*.o
+
+# Report written by module 9 when run from the repository root
+/rupeeclarity_report.txt
