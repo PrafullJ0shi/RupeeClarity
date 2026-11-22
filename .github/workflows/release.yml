@@ -1,0 +1,114 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  linux-windows-android:
+    name: Linux, Windows and Android builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cross compilers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64-x86-64 gcc-aarch64-linux-gnu
+
+      - name: Set up Android NDK
+        id: ndk
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r27c
+          add-to-path: false
+
+      - name: Build
+        env:
+          NDK: ${{ steps.ndk.outputs.ndk-path }}
+        run: |
+          mkdir -p dist
+          FLAGS="-std=c99 -O2 -Wall -Wextra -Werror"
+          gcc $FLAGS -static src/rupeeclarity.c -o dist/rupeeclarity-linux-x64 -lm
+          aarch64-linux-gnu-gcc $FLAGS -static src/rupeeclarity.c -o dist/rupeeclarity-linux-arm64 -lm
+          x86_64-w64-mingw32-gcc $FLAGS -static src/rupeeclarity.c -o dist/rupeeclarity-windows-x64.exe -lm
+          TC="$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          "$TC/aarch64-linux-android24-clang"   $FLAGS src/rupeeclarity.c -o dist/rupeeclarity-android-arm64 -lm
+          "$TC/armv7a-linux-androideabi24-clang" $FLAGS src/rupeeclarity.c -o dist/rupeeclarity-android-armv7 -lm
+          "$TC/llvm-strip" dist/rupeeclarity-android-*
+          strip dist/rupeeclarity-linux-x64
+          chmod +x dist/*
+
+      - name: Smoke test (Linux x64)
+        run: |
+          mkdir -p /tmp/rc && cd /tmp/rc
+          python3 "$GITHUB_WORKSPACE/tests/test_cli.py" "$GITHUB_WORKSPACE/dist/rupeeclarity-linux-x64"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-linux-windows-android
+          path: dist/*
+
+  macos:
+    name: macOS universal build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (Apple Silicon + Intel)
+        run: |
+          mkdir -p dist
+          clang -std=c99 -O2 -Wall -Wextra -Werror -arch arm64 -arch x86_64 \
+            -mmacosx-version-min=11.0 src/rupeeclarity.c -o dist/rupeeclarity-macos-universal -lm
+          lipo -info dist/rupeeclarity-macos-universal
+      - name: Smoke test
+        run: |
+          mkdir -p /tmp/rc && cd /tmp/rc
+          python3 "$GITHUB_WORKSPACE/tests/test_cli.py" "$GITHUB_WORKSPACE/dist/rupeeclarity-macos-universal"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-macos
+          path: dist/*
+
+  publish:
+    name: Publish GitHub Release
+    needs: [linux-windows-android, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Checksums
+        run: |
+          cd dist
+          sha256sum rupeeclarity-* > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: RupeeClarity ${{ github.ref_name }}
+          generate_release_notes: true
+          body: |
+            Ready-to-run downloads. No compiler needed.
+
+            | System | File |
+            |---|---|
+            | Windows 10/11 (64-bit) | `rupeeclarity-windows-x64.exe` |
+            | macOS 11+ (Apple Silicon and Intel) | `rupeeclarity-macos-universal` |
+            | Linux x64 | `rupeeclarity-linux-x64` |
+            | Linux ARM64 (Raspberry Pi 4/5 and others) | `rupeeclarity-linux-arm64` |
+            | Android phone, 64-bit (Termux) | `rupeeclarity-android-arm64` |
+            | Android phone, 32-bit (Termux) | `rupeeclarity-android-armv7` |
+
+            One-line install on Linux, macOS or Android (Termux):
+            `curl -fsSL https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/install.sh | bash`
+
+            No install at all: https://prafullj0shi.github.io/RupeeClarity/
+          files: |
+            dist/rupeeclarity-*
+            dist/SHA256SUMS.txt
