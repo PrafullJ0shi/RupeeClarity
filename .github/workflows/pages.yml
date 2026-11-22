@@ -25,7 +25,8 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp -r web/index.html web/style.css web/app.js web/rupeeclarity.js web/rupeeclarity.wasm web/vendor _site/
+          cp -r web/. _site/
+          rm -f _site/build.sh
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5
