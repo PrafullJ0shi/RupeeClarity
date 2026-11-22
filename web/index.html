@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RupeeClarity - Interest that Talks Back</title>
+  <meta name="description" content="Run RupeeClarity in your browser: a menu-driven C program that calculates, compares and explains Simple and Compound Interest in Indian Rupees. No install, no sign-in.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="RupeeClarity - Interest that Talks Back">
+  <meta property="og:description" content="The original C program, compiled to WebAssembly. Runs on PC and Android in one click.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310b981'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%230d1117' font-family='Arial' font-weight='700'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/xterm.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">₹</span>
+      <div>
+        <h1>RupeeClarity</h1>
+        <p class="tagline">Interest that Talks Back</p>
+      </div>
+    </div>
+    <nav class="actions">
+      <button id="restart" type="button" class="btn">Restart</button>
+      <button id="download" type="button" class="btn" disabled title="Use menu option 9 to create the report first">Download report</button>
+      <a class="btn primary" href="https://github.com/PrafullJ0shi/RupeeClarity" target="_blank" rel="noopener">View on GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="window" aria-label="RupeeClarity terminal">
+      <div class="titlebar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="wtitle">rupeeclarity — running in your browser</span>
+        <span id="status" class="status">Loading…</span>
+      </div>
+      <div id="terminal" role="application" aria-label="Program output. Type your answer and press Enter."></div>
+    </section>
+
+    <form id="inputbar" class="inputbar" autocomplete="off">
+      <label for="line" class="sr-only">Your input</label>
+      <input id="line" name="line" type="text" inputmode="decimal" enterkeyhint="send"
+             placeholder="Type here, then Enter" autocapitalize="off" spellcheck="false">
+      <button type="submit" class="btn primary send">Enter ⏎</button>
+    </form>
+
+    <div class="chips" aria-label="Quick menu choices">
+      <button type="button" data-send="" class="chip wide">⏎ Continue</button>
+      <button type="button" data-send="1" class="chip">1 SI</button>
+      <button type="button" data-send="2" class="chip">2 CI</button>
+      <button type="button" data-send="3" class="chip">3 Compare</button>
+      <button type="button" data-send="4" class="chip">4 Table</button>
+      <button type="button" data-send="5" class="chip">5 Goal</button>
+      <button type="button" data-send="6" class="chip">6 What-If</button>
+      <button type="button" data-send="7" class="chip">7 Rule 72</button>
+      <button type="button" data-send="8" class="chip">8 Story</button>
+      <button type="button" data-send="9" class="chip">9 Report</button>
+      <button type="button" data-send="10" class="chip">10 Formulas</button>
+      <button type="button" data-send="11" class="chip">11 About</button>
+      <button type="button" data-send="0" class="chip">0 Exit</button>
+    </div>
+
+    <p class="hint">Click the terminal and type, or use the box above (best on phones).
+      Try <b>3</b> → <b>10000</b> → <b>10</b> → <b>2</b> → <b>1</b> to see why compound interest earns ₹100 more.</p>
+  </main>
+
+  <footer class="foot">
+    The real C program, compiled to WebAssembly. Everything runs on your device; nothing is sent anywhere.
+    · <a href="https://github.com/PrafullJ0shi/RupeeClarity#download--install" target="_blank" rel="noopener">Download for Windows, macOS, Linux, Android</a>
+    · BCA-I Mini Project by Prafull Joshi, Uttaranchal University
+  </footer>
+
+  <script src="vendor/xterm.js"></script>
+  <script src="vendor/addon-fit.js"></script>
+  <script src="rupeeclarity.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
