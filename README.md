@@ -91,6 +91,10 @@ RupeeClarity/
 ├── docs/
 │   ├── RupeeClarity_Project_Report.docx
 │   ├── RupeeClarity_Project_Report.pdf
+│   ├── RupeeClarity_Synopsis.docx
+│   ├── RupeeClarity_Synopsis.pdf
+│   ├── RupeeClarity_Presentation.pptx
+│   ├── RupeeClarity_Presentation.pdf
 │   └── screenshots/              # console captures and charts
 ├── samples/
 │   └── sample_report.txt         # output of module 9
@@ -136,6 +140,12 @@ Developed as the mini project for **Programming in C Lab (BCA-C112)**, BCA-I, se
 - **Author:** Prafull Joshi — BCA-I, Section E, Class Roll No. 43
 
 The full project report (analysis, design diagrams, test cases, security notes and source listing) is in [`docs/`](docs/).
+
+| Document | Formats |
+|---|---|
+| Project Report | [PDF](docs/RupeeClarity_Project_Report.pdf) · [DOCX](docs/RupeeClarity_Project_Report.docx) |
+| Project Synopsis | [PDF](docs/RupeeClarity_Synopsis.pdf) · [DOCX](docs/RupeeClarity_Synopsis.docx) |
+| Presentation | [PDF](docs/RupeeClarity_Presentation.pdf) · [PPTX](docs/RupeeClarity_Presentation.pptx) |
 
 ## License
 
