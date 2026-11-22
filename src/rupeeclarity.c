@@ -8,7 +8,9 @@
  * Submitted to: Ms. Shivani Sisodia
  * Session: 2026-27
  *
+ * Version: 1.2
  * Compile: gcc rupeeclarity.c -o rupeeclarity -lm
+ *          (strict: gcc -std=c99 -Wall -Wextra rupeeclarity.c -o rupeeclarity -lm)
  * Run:     ./rupeeclarity
  */
 
@@ -17,17 +19,34 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
+#include <errno.h>
 
 #ifdef _WIN32
+    #include <windows.h>
     #define CLEAR "cls"
 #else
     #define CLEAR "clear"
+#endif
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+/* Browser version: waits for one line typed in the web terminal.
+   Returns the number of bytes copied, or -1 when the session is closed. */
+EM_ASYNC_JS(int, web_read_line, (char *buffer, int size), {
+    var line = await Module.readLine();
+    if (line === null) return -1;
+    if (lengthBytesUTF8(line) + 1 < size) line = line + "\n";   /* too long: no newline, so it is rejected */
+    return stringToUTF8(line, buffer, size);
+});
 #endif
 
 /* Function prototypes */
 void clear_screen(void);
 void pause_screen(void);
 void clean_input(void);
+void exit_on_eof(void);
+int read_line(char *buffer, int size);
+int only_spaces(const char *p);
 int read_choice(int min, int max);
 double read_positive(const char *prompt);
 void ask_prt(double *P, double *R, double *T);
@@ -48,13 +67,22 @@ void module_about(void);
 
 /* Helper functions */
 void clear_screen(void) {
-    system(CLEAR);
+#ifdef __EMSCRIPTEN__
+    printf("\033[2J\033[3J\033[H");   /* the web terminal understands ANSI codes */
+    fflush(stdout);
+#else
+    fflush(stdout);
+    if (system(CLEAR) != 0) {
+        printf("\n\n");               /* no clear command available: just add space */
+    }
+#endif
 }
 
 void pause_screen(void) {
+    char buffer[100];
     printf("\nPress ENTER to return to menu...");
-    clean_input();
-    getchar();
+    /* Every input is read as a whole line, so one ENTER is enough here. */
+    read_line(buffer, sizeof(buffer));
 }
 
 void clean_input(void) {
@@ -62,27 +90,82 @@ void clean_input(void) {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+/* Called when standard input is closed (Ctrl+D, Ctrl+Z or end of piped input). */
+void exit_on_eof(void) {
+    printf("\n\nInput closed (end of file). Exiting RupeeClarity.\n");
+    exit(0);
+}
+
+/* Reads one whole line and removes the newline.
+   Returns the length of the line, or -1 if the line was too long for the buffer. */
+int read_line(char *buffer, int size) {
+    size_t len;
+    fflush(stdout);
+#ifdef __EMSCRIPTEN__
+    if (web_read_line(buffer, size) < 0) exit_on_eof();
+#else
+    if (fgets(buffer, size, stdin) == NULL) exit_on_eof();
+#endif
+    len = strlen(buffer);
+    if (len > 0 && buffer[len - 1] == '\n') {
+        buffer[--len] = '\0';
+        return (int)len;
+    }
+#ifndef __EMSCRIPTEN__
+    if (feof(stdin)) return (int)len;   /* last line without a newline */
+    clean_input();                      /* discard the rest of a long line */
+#endif
+    return -1;
+}
+
+/* Returns 1 if the string contains nothing but spaces. */
+int only_spaces(const char *p) {
+    while (isspace((unsigned char)*p)) p++;
+    return *p == '\0';
+}
+
+/* Accepts only a whole number between min and max: "2.5", "3abc" and empty lines are rejected. */
 int read_choice(int min, int max) {
-    int choice;
     char buffer[100];
+    char *end;
+    long value;
     while (1) {
         printf("Enter choice (%d-%d): ", min, max);
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) continue;
-        if (sscanf(buffer, "%d", &choice) == 1 && choice >= min && choice <= max) {
-            return choice;
+        if (read_line(buffer, sizeof(buffer)) > 0) {
+            errno = 0;
+            value = strtol(buffer, &end, 10);
+            if (end != buffer && errno == 0 && only_spaces(end) &&
+                value >= min && value <= max) {
+                return (int)value;
+            }
         }
         printf("Invalid choice. Please try again.\n");
     }
 }
 
+/* Accepts only a finite number greater than zero: "12abc", "inf", "nan" and empty lines are rejected. */
 double read_positive(const char *prompt) {
-    double val;
     char buffer[100];
+    char *end;
+    double val;
+    size_t i;
+    int ok;
     while (1) {
         printf("%s", prompt);
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) continue;
-        if (sscanf(buffer, "%lf", &val) == 1 && val > 0) {
-            return val;
+        if (read_line(buffer, sizeof(buffer)) > 0) {
+            ok = 1;
+            for (i = 0; buffer[i] != '\0'; i++) {   /* digits, sign, point, exponent only */
+                if (!isspace((unsigned char)buffer[i]) && !isdigit((unsigned char)buffer[i]) &&
+                    strchr("+-.eE", buffer[i]) == NULL) {
+                    ok = 0;
+                }
+            }
+            errno = 0;
+            val = strtod(buffer, &end);
+            if (ok && end != buffer && errno == 0 && only_spaces(end) &&
+                isfinite(val) && val > 0) {
+                return val;
+            }
         }
         printf("Please enter a positive number.\n");
     }
@@ -191,9 +274,9 @@ void module_year_table(void) {
     print_header("YEAR-BY-YEAR TABLE");
     ask_prt(&P, &R, &T);
     n = ask_n();
-    years = (int)T;
+    years = (int)T;              /* whole years only */
     if (years < 1) years = 1;
-    if (years > 30) years = 30;  /* safety limit */
+    if (years > 30) years = 30;  /* safety limit: at most 30 rows */
 
     printf("\nYear | SI Amount     | CI Amount     | Gap\n");
     printf("-----|---------------|---------------|--------\n");
@@ -348,6 +431,9 @@ void module_about(void) {
 /* Main menu */
 int main(void) {
     int choice;
+#ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);   /* show the Rs/≈ symbols correctly in the Windows console */
+#endif
     while (1) {
         clear_screen();
         printf("============================================================\n");
