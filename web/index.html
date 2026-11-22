@@ -3,78 +3,342 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>RupeeClarity - Interest that Talks Back</title>
-  <meta name="description" content="Run RupeeClarity in your browser: a menu-driven C program that calculates, compares and explains Simple and Compound Interest in Indian Rupees. No install, no sign-in.">
-  <meta name="theme-color" content="#0d1117">
-  <meta property="og:title" content="RupeeClarity - Interest that Talks Back">
-  <meta property="og:description" content="The original C program, compiled to WebAssembly. Runs on PC and Android in one click.">
+  <title>RupeeClarity — Interest that Talks Back</title>
+  <meta name="description" content="A student project by Prafull Joshi: a menu-driven C program that calculates, compares and explains Simple and Compound Interest in Indian Rupees. Run it in the browser, or download it for Windows, macOS, Linux and Android.">
+  <meta name="author" content="Prafull Joshi">
+  <meta name="theme-color" content="#10233A">
+  <meta property="og:title" content="RupeeClarity — Interest that Talks Back">
+  <meta property="og:description" content="A student project by Prafull Joshi. The original C program, compiled to WebAssembly. Run it in your browser — no install, no sign-in.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310b981'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%230d1117' font-family='Arial' font-weight='700'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310233A'/%3E%3Ctext x='32' y='46' font-size='38' text-anchor='middle' fill='%23E0C37A' font-family='Georgia,serif' font-weight='700'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,500;144,650&amp;family=Public+Sans:wght@400;600&amp;display=swap">
   <link rel="stylesheet" href="vendor/xterm.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">₹</span>
-      <div>
-        <h1>RupeeClarity</h1>
-        <p class="tagline">Interest that Talks Back</p>
-      </div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="#top">
+        <span class="mark" aria-hidden="true">₹</span>
+        <span>RupeeClarity</span>
+      </a>
+      <nav class="site-nav" aria-label="Page sections">
+        <a href="#run">Run</a>
+        <a href="#modules">Modules</a>
+        <a href="#example">Example</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#demo">Demo</a>
+        <a href="#downloads">Download</a>
+        <a href="#documents">Documents</a>
+        <a href="https://github.com/PrafullJ0shi/RupeeClarity" target="_blank" rel="noopener">GitHub</a>
+      </nav>
     </div>
-    <nav class="actions">
-      <button id="restart" type="button" class="btn">Restart</button>
-      <button id="download" type="button" class="btn" disabled title="Use menu option 9 to create the report first">Download report</button>
-      <a class="btn primary" href="https://github.com/PrafullJ0shi/RupeeClarity" target="_blank" rel="noopener">View on GitHub</a>
-    </nav>
   </header>
 
-  <main>
-    <section class="window" aria-label="RupeeClarity terminal">
-      <div class="titlebar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="wtitle">rupeeclarity — running in your browser</span>
-        <span id="status" class="status">Loading…</span>
-      </div>
-      <div id="terminal" role="application" aria-label="Program output. Type your answer and press Enter."></div>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="site-title">
+      <p class="eyebrow">A student project by Prafull Joshi</p>
+      <h1 id="site-title">RupeeClarity</h1>
+      <p class="tagline">Interest that Talks Back</p>
+      <p class="lede">A menu-driven C program that calculates, compares and explains Simple Interest and Compound Interest in Indian Rupees — without hiding the working.</p>
+      <ul class="byline">
+        <li>Prafull Joshi · BCA-I · Roll No. 43</li>
+        <li>Guide: Ms. Shivani Sisodia</li>
+        <li>BCA Project · Uttaranchal School of Computing Sciences, Uttaranchal University</li>
+      </ul>
+      <p class="disclaimer">This is a personal student project. It is not an official website or publication of Uttaranchal University, and the university has not published or endorsed this page.</p>
+      <p class="hero-actions">
+        <a class="btn primary" href="#run">Run in browser</a>
+        <a class="btn ghost" href="https://github.com/PrafullJ0shi/RupeeClarity" target="_blank" rel="noopener">View on GitHub</a>
+      </p>
     </section>
 
-    <form id="inputbar" class="inputbar" autocomplete="off">
-      <label for="line" class="sr-only">Your input</label>
-      <input id="line" name="line" type="text" inputmode="decimal" enterkeyhint="send"
-             placeholder="Type here, then Enter" autocapitalize="off" spellcheck="false">
-      <button type="submit" class="btn primary send">Enter ⏎</button>
-    </form>
+    <section class="run" id="run" aria-labelledby="run-title">
+      <div class="section-inner">
+        <p class="section-kicker">Try it now</p>
+        <h2 id="run-title">Run in browser</h2>
+        <p class="section-lead">The original C program, compiled to WebAssembly. It runs entirely on your device — no install, no sign-in, and nothing is sent anywhere. Click the terminal and type, or use the box and buttons below (best on a phone).</p>
 
-    <div class="chips" aria-label="Quick menu choices">
-      <button type="button" data-send="" class="chip wide">⏎ Continue</button>
-      <button type="button" data-send="1" class="chip">1 SI</button>
-      <button type="button" data-send="2" class="chip">2 CI</button>
-      <button type="button" data-send="3" class="chip">3 Compare</button>
-      <button type="button" data-send="4" class="chip">4 Table</button>
-      <button type="button" data-send="5" class="chip">5 Goal</button>
-      <button type="button" data-send="6" class="chip">6 What-If</button>
-      <button type="button" data-send="7" class="chip">7 Rule 72</button>
-      <button type="button" data-send="8" class="chip">8 Story</button>
-      <button type="button" data-send="9" class="chip">9 Report</button>
-      <button type="button" data-send="10" class="chip">10 Formulas</button>
-      <button type="button" data-send="11" class="chip">11 About</button>
-      <button type="button" data-send="0" class="chip">0 Exit</button>
-    </div>
+        <div class="run-toolbar">
+          <button id="restart" type="button" class="btn">Restart</button>
+          <button id="download" type="button" class="btn" disabled title="Use menu option 9 to create the report first">Download report</button>
+        </div>
 
-    <p class="hint">Click the terminal and type, or use the box above (best on phones).
-      Try <b>3</b> → <b>10000</b> → <b>10</b> → <b>2</b> → <b>1</b> to see why compound interest earns ₹100 more.</p>
+        <section class="window" aria-label="RupeeClarity terminal">
+          <div class="titlebar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="wtitle">rupeeclarity — running in your browser</span>
+            <span id="status" class="status">Loading…</span>
+          </div>
+          <div id="terminal" role="application" aria-label="Program output. Type your answer and press Enter."></div>
+        </section>
+
+        <form id="inputbar" class="inputbar" autocomplete="off">
+          <label for="line" class="sr-only">Your input</label>
+          <input id="line" name="line" type="text" inputmode="decimal" enterkeyhint="send"
+                 placeholder="Type here, then Enter" autocapitalize="off" spellcheck="false">
+          <button type="submit" class="btn primary send">Enter ⏎</button>
+        </form>
+
+        <div class="chips" aria-label="Quick menu choices">
+          <button type="button" data-send="" class="chip wide">⏎ Continue</button>
+          <button type="button" data-send="1" class="chip">1 SI</button>
+          <button type="button" data-send="2" class="chip">2 CI</button>
+          <button type="button" data-send="3" class="chip">3 Compare</button>
+          <button type="button" data-send="4" class="chip">4 Table</button>
+          <button type="button" data-send="5" class="chip">5 Goal</button>
+          <button type="button" data-send="6" class="chip">6 What-If</button>
+          <button type="button" data-send="7" class="chip">7 Rule 72</button>
+          <button type="button" data-send="8" class="chip">8 Story</button>
+          <button type="button" data-send="9" class="chip">9 Report</button>
+          <button type="button" data-send="10" class="chip">10 Formulas</button>
+          <button type="button" data-send="11" class="chip">11 About</button>
+          <button type="button" data-send="0" class="chip">0 Exit</button>
+        </div>
+
+        <p class="hint">Try <b>3</b> → <b>10000</b> → <b>10</b> → <b>2</b> → <b>1</b> (yearly compounding) to see why compound interest earns ₹100 more.</p>
+      </div>
+    </section>
+
+    <section class="paper" id="modules" aria-labelledby="modules-title">
+      <div class="section-inner">
+        <p class="section-kicker ink">Eleven modules</p>
+        <h2 id="modules-title">What the program can do</h2>
+        <p class="section-lead ink">Each module is a numbered choice on the main menu. Values are entered as principal (P) in rupees, rate (R) in percent, and time (T) in years. Compound interest modules also ask for a compounding frequency: yearly, half-yearly, quarterly or monthly.</p>
+        <ol class="modules">
+          <li>
+            <h3>Simple Interest Lab</h3>
+            <p>Calculates simple interest and the total amount, and shows the formula SI = (P × R × T) / 100 with the numbers filled in.</p>
+          </li>
+          <li>
+            <h3>Compound Interest Lab</h3>
+            <p>Calculates compound interest and the total amount for yearly, half-yearly, quarterly or monthly compounding, and shows A = P × (1 + R/(100×n))<sup>(n×T)</sup> with the working.</p>
+          </li>
+          <li>
+            <h3>Compare SI vs CI</h3>
+            <p>Places simple and compound interest side by side for the same P, R, T and frequency, reports the extra (CI − SI), names a winner, and explains that last year’s interest starts earning interest when money is compounded.</p>
+          </li>
+          <li>
+            <h3>Year-by-Year Table</h3>
+            <p>Prints SI amount, CI amount and the gap for each whole year, so the growing difference is visible. The table is limited to 30 rows.</p>
+          </li>
+          <li>
+            <h3>Goal Check</h3>
+            <p>Asks for a target amount, then reports whether the SI amount and the CI amount each reach it.</p>
+          </li>
+          <li>
+            <h3>What-If +1%</h3>
+            <p>Recalculates the compound-interest amount at the rate you entered and at one percentage point higher, and shows the difference.</p>
+          </li>
+          <li>
+            <h3>Years to Double / Rule of 72</h3>
+            <p>Estimates how many years money takes to double using 72 / R, and notes that the Rule of 72 is a shortcut, not an exact result.</p>
+          </li>
+          <li>
+            <h3>Story Mode</h3>
+            <p>Explains in plain language why compound interest beats simple interest: simple interest is like a fixed salary, while compound interest puts last year’s interest back to work. The extra is not a rounding error.</p>
+          </li>
+          <li>
+            <h3>Save Report</h3>
+            <p>Writes <code>rupeeclarity_report.txt</code> with P, R, T, compounding frequency, SI, CI and the extra. In this browser version, use <strong>Download report</strong> afterwards to save the file to your device.</p>
+          </li>
+          <li>
+            <h3>Formula Vault</h3>
+            <p>Lists every formula the program uses — simple interest, compound interest, and the Rule of 72 — and the meaning of P, R, T and n.</p>
+          </li>
+          <li>
+            <h3>About</h3>
+            <p>Shows the project card: Prafull Joshi, Class Roll No. 43, BCA-I, session 2026–27, guide Ms. Shivani Sisodia, course Programming in C Lab (BCA-C112), Uttaranchal School of Computing Sciences, Uttaranchal University, Dehradun.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="paper example" id="example" aria-labelledby="example-title">
+      <div class="section-inner">
+        <p class="section-kicker ink">The classic example</p>
+        <h2 id="example-title">Why compound interest earns ₹100 more</h2>
+        <p class="section-lead ink">Principal ₹10,000 at 10% per annum for 2 years, compounded yearly — the output of module 3, Compare SI vs CI.</p>
+        <div class="table-wrap" tabindex="0">
+          <table>
+            <caption>Comparison for P = ₹10,000, R = 10%, T = 2 years, yearly compounding</caption>
+            <thead>
+              <tr>
+                <th scope="col">Quantity</th>
+                <th scope="col">Simple Interest</th>
+                <th scope="col">Compound Interest</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Interest earned</th>
+                <td>₹2,000.00</td>
+                <td>₹2,100.00</td>
+              </tr>
+              <tr>
+                <th scope="row">Final amount</th>
+                <td>₹12,000.00</td>
+                <td>₹12,100.00</td>
+              </tr>
+              <tr class="highlight">
+                <th scope="row">Extra from compounding</th>
+                <td>—</td>
+                <td>₹100.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="example-note">The extra ₹100 is not a rounding error: it is the first year’s ₹1,000 interest earning 10% in the second year.</p>
+      </div>
+    </section>
+
+    <section class="paper shots" id="screenshots" aria-labelledby="shots-title">
+      <div class="section-inner">
+        <p class="section-kicker ink">From a real session</p>
+        <h2 id="shots-title">Screenshots</h2>
+        <p class="section-lead ink">Captured from the compiled C program running in a terminal.</p>
+        <ul class="gallery">
+          <li>
+            <figure>
+              <img src="assets/01_main_menu.png" alt="Terminal screenshot of the RupeeClarity main menu, listing modules 1 to 11 and Exit." width="898" height="684">
+              <figcaption>Main menu</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/02_compare_si_ci.png" alt="Terminal screenshot of Compare SI and CI for Rs 10,000 at 10% over 2 years, showing simple interest Rs 2,000.00, compound interest Rs 2,100.00, and extra Rs 100.00." width="950" height="864">
+              <figcaption>Compare SI and CI</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/03_year_by_year_table.png" alt="Terminal screenshot of the year-by-year table, with columns for year, SI amount, CI amount, and the gap." width="898" height="954">
+              <figcaption>Year-by-year table</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/04_rule_of_72.png" alt="Terminal screenshot of the Years to Double module, showing the Rule of 72 shortcut." width="898" height="384">
+              <figcaption>Years to double (Rule of 72)</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/05_report_file.png" alt="Screenshot of a saved rupeeclarity_report.txt file listing principal, rate, time, simple and compound interest, and the extra amount." width="898" height="534">
+              <figcaption>Saved report file</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/06_about.png" alt="Terminal screenshot of the About project card, showing Prafull Joshi, class roll number 43, guide Ms. Shivani Sisodia, and Uttaranchal School of Computing Sciences." width="911" height="714">
+              <figcaption>About / project card</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/chart_si_vs_ci.png" alt="Chart comparing the growth of simple interest and compound interest over time." width="1400" height="800">
+              <figcaption>Simple vs compound interest</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/chart_compounding_frequency.png" alt="Chart comparing yearly, half-yearly, quarterly and monthly compounding." width="1400" height="760">
+              <figcaption>Compounding frequency</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="paper demo" id="demo" aria-labelledby="demo-title">
+      <div class="section-inner">
+        <p class="section-kicker ink">Walkthrough</p>
+        <h2 id="demo-title">Demo video</h2>
+        <p class="section-lead ink">A real terminal session of the compiled program (8 minutes 47 seconds, 1080p). It shows the build, every module from 1 to 11, the saved report file, input validation and exit.</p>
+        <div class="video-wrap">
+          <video controls preload="none" playsinline poster="assets/demo-poster.jpg" width="1280" height="720">
+            <source src="assets/RupeeClarity_Demo.mp4" type="video/mp4">
+            <a href="assets/RupeeClarity_Demo.mp4">Download the demo video (MP4, 6.2&nbsp;MB)</a>
+          </video>
+        </div>
+        <p class="video-fallback">If the player does not start, <a href="assets/RupeeClarity_Demo.mp4">download the MP4</a> or watch it on <a href="https://github.com/PrafullJ0shi/RupeeClarity/blob/main/docs/demo/RupeeClarity_Demo.mp4" target="_blank" rel="noopener">GitHub</a>.</p>
+      </div>
+    </section>
+
+    <section class="paper downloads" id="downloads" aria-labelledby="download-title">
+      <div class="section-inner">
+        <p class="section-kicker ink">Native builds</p>
+        <h2 id="download-title">Download</h2>
+        <p class="section-lead ink">Ready-to-run programs from the latest GitHub release. No compiler is needed. You can also keep using the browser version above.</p>
+        <ul class="downloads">
+          <li>
+            <a href="https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-windows-x64.exe">Windows 10/11 (64-bit)</a>
+            <span>rupeeclarity-windows-x64.exe</span>
+          </li>
+          <li>
+            <a href="https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-macos-universal">macOS 11+ (Apple Silicon and Intel)</a>
+            <span>rupeeclarity-macos-universal</span>
+          </li>
+          <li>
+            <a href="https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-linux-x64">Linux x64</a>
+            <span>rupeeclarity-linux-x64</span>
+          </li>
+          <li>
+            <a href="https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-linux-arm64">Linux ARM64</a>
+            <span>rupeeclarity-linux-arm64</span>
+          </li>
+          <li>
+            <a href="https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-android-arm64">Android 64-bit (Termux)</a>
+            <span>rupeeclarity-android-arm64</span>
+          </li>
+          <li>
+            <a href="https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-android-armv7">Android 32-bit (Termux)</a>
+            <span>rupeeclarity-android-armv7</span>
+          </li>
+        </ul>
+        <h3 class="subhead">Android via Termux</h3>
+        <p>Install <a href="https://f-droid.org/packages/com.termux/" target="_blank" rel="noopener">Termux from F-Droid</a> (the Play Store version is outdated), open it, and run this one-liner. It picks the 64-bit or 32-bit build for your phone.</p>
+        <div class="install">
+          <pre><code id="install-cmd">curl -fsSL https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/install.sh | bash</code></pre>
+          <button type="button" id="copy-install" class="btn">Copy</button>
+          <p id="copy-status" class="sr-only" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper documents" id="documents" aria-labelledby="docs-title">
+      <div class="section-inner">
+        <p class="section-kicker ink">Project files</p>
+        <h2 id="docs-title">Documents</h2>
+        <p class="section-lead ink">Submitted as part of this BCA-I mini project. Opened on GitHub.</p>
+        <ul class="doc-list">
+          <li><a href="https://github.com/PrafullJ0shi/RupeeClarity/blob/main/docs/RupeeClarity_Project_Report.pdf" target="_blank" rel="noopener">Project report (PDF)</a></li>
+          <li><a href="https://github.com/PrafullJ0shi/RupeeClarity/blob/main/docs/RupeeClarity_Synopsis.pdf" target="_blank" rel="noopener">Synopsis (PDF)</a></li>
+          <li><a href="https://github.com/PrafullJ0shi/RupeeClarity/blob/main/docs/RupeeClarity_Presentation.pdf" target="_blank" rel="noopener">Presentation (PDF)</a></li>
+        </ul>
+      </div>
+    </section>
   </main>
 
-  <footer class="foot">
-    The real C program, compiled to WebAssembly. Everything runs on your device; nothing is sent anywhere.
-    · <a href="https://github.com/PrafullJ0shi/RupeeClarity#download--install" target="_blank" rel="noopener">Download for Windows, macOS, Linux, Android</a>
-    · BCA-I Mini Project by Prafull Joshi, Uttaranchal University
+  <footer class="site-footer">
+    <div class="section-inner">
+      <p>A student project by Prafull Joshi, BCA-I, Class Roll No. 43, Uttaranchal School of Computing Sciences, Uttaranchal University. Guide: Ms. Shivani Sisodia.</p>
+      <p>This page is not an official Uttaranchal University website, and the university has not published or endorsed it.</p>
+      <p>
+        <a href="https://github.com/PrafullJ0shi/RupeeClarity" target="_blank" rel="noopener">github.com/PrafullJ0shi/RupeeClarity</a>
+        · <a href="https://github.com/PrafullJ0shi/RupeeClarity/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+      </p>
+    </div>
   </footer>
 
   <script src="vendor/xterm.js"></script>
   <script src="vendor/addon-fit.js"></script>
   <script src="rupeeclarity.js"></script>
   <script src="app.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>
