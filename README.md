@@ -2,16 +2,28 @@
 
 **Interest that Talks Back** — a menu-driven C program that calculates, compares and *explains* Simple Interest and Compound Interest in Indian Rupees, without hiding the working.
 
+<p align="center">
+  <a href="https://prafullj0shi.github.io/RupeeClarity/"><img src="https://img.shields.io/badge/%E2%96%B6%20Run%20in%20browser-one%20click%2C%20no%20install-10b981?style=for-the-badge" alt="Run in browser: one click, no install" height="48"></a>
+</p>
+
+<p align="center">
+  <b><a href="https://prafullj0shi.github.io/RupeeClarity/">prafullj0shi.github.io/RupeeClarity</a></b><br>
+  Works in Chrome on a PC or an Android phone. No install, no sign-in.<br>
+  Or <a href="#download--install">download it</a> for Windows, macOS, Linux and Android.
+</p>
+
 ![Language: C](https://img.shields.io/badge/language-C-00599C?logo=c&logoColor=white)
 ![Standard: C99](https://img.shields.io/badge/standard-C99-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+[![CI](https://github.com/PrafullJ0shi/RupeeClarity/actions/workflows/ci.yml/badge.svg)](https://github.com/PrafullJ0shi/RupeeClarity/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/PrafullJ0shi/RupeeClarity)](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PrafullJ0shi/RupeeClarity)
 
 ![RupeeClarity demo: main menu, Compare SI and CI, Year-by-Year Table](docs/demo/demo-preview.gif)
 
 **▶ [Watch the full demo video](docs/demo/RupeeClarity_Demo.mp4)** (8 min 47 s, 1080p). It is a real terminal session of the compiled program. It shows the build, every module from 1 to 11, the saved report file, input validation and exit.
 
-**Try it in your browser, no install needed:** see [Run it online](#run-it-online-no-install).
+**Try it in your browser, no install needed:** [open the web version](https://prafullj0shi.github.io/RupeeClarity/), or see [Run it online](#run-it-online-no-install) for more options.
 
 ---
 
@@ -19,7 +31,7 @@
 
 Most interest calculators print a single number. RupeeClarity prints the number **and the reason behind it**. It shows Simple Interest (SI) and Compound Interest (CI) side by side and builds a year-by-year table so the growing gap is visible. It also explains in plain language why compounding pays more: last year's interest goes back to work.
 
-The whole program is one portable C99 source file. It uses only the standard library (`stdio.h`, `stdlib.h`, `math.h`, `string.h`, `ctype.h`), validates every input, and can save a plain-text report of any calculation.
+The whole program is one portable C99 source file. It uses only the standard library (`stdio.h`, `stdlib.h`, `math.h`, `string.h`, `ctype.h`, `errno.h`), validates every input, and can save a plain-text report of any calculation.
 
 ### The classic example
 
@@ -80,7 +92,18 @@ GitHub plays MP4 files in the browser. If it asks you to download instead, use *
 
 You need only a web browser.
 
-### Option 1: GitHub Codespaces (recommended)
+### Option 1: One click in the browser (easiest)
+
+**[▶ Open RupeeClarity in your browser](https://prafullj0shi.github.io/RupeeClarity/)**
+
+This is the same C program, compiled to WebAssembly with Emscripten and shown in a terminal on the page. It runs entirely on your device, in Chrome, Edge or Firefox on a PC, and in Chrome on Android.
+
+- Click the terminal and type, or use the input box and the **Enter ⏎** button under it (easier on a phone). The buttons below the box send menu choices with one tap.
+- Clearing the screen works as it does in a local terminal.
+- After module 9, **Download report** saves `rupeeclarity_report.txt` to your device.
+- **Restart** starts a fresh session at any time.
+
+### Option 2: GitHub Codespaces
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PrafullJ0shi/RupeeClarity)
 
@@ -94,7 +117,7 @@ You need only a web browser.
 
 Personal GitHub accounts get a free monthly allowance of Codespaces usage. To save that allowance, stop the codespace when you finish (**Code → Codespaces → ⋯ → Stop codespace**).
 
-### Option 2: An online C compiler (no account needed)
+### Option 3: An online C compiler (no account needed)
 
 1. Open the source in raw form: [`src/rupeeclarity.c` (raw)](https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/src/rupeeclarity.c). Select all of it and copy it.
 2. Open one of these online compilers and make sure the language is **C**:
@@ -108,6 +131,60 @@ Notes for online compilers:
 - The program uses `pow()` from `math.h`. If the build fails with `undefined reference to 'pow'`, add `-lm` to the extra compiler flags. In OnlineGDB, that field is in the settings (gear icon).
 - The program clears the screen with `system("clear")`. Some web consoles cannot clear the screen, so you may see a line like `TERM environment variable not set.` or the old output may stay above the new screen. Neither affects the calculations.
 - Module 9 saves `rupeeclarity_report.txt` in the online compiler's temporary sandbox. To keep it, use Codespaces or a local build.
+
+## Download / Install
+
+Ready-to-run programs are attached to every [GitHub Release](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest). No compiler is needed.
+
+| System | Direct download |
+|---|---|
+| Windows 10/11 (64-bit) | [rupeeclarity-windows-x64.exe](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-windows-x64.exe) |
+| macOS 11+ (Apple Silicon and Intel) | [rupeeclarity-macos-universal](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-macos-universal) |
+| Linux x64 | [rupeeclarity-linux-x64](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-linux-x64) |
+| Linux ARM64 (Raspberry Pi 4/5 and others) | [rupeeclarity-linux-arm64](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-linux-arm64) |
+| Android, 64-bit (Termux) | [rupeeclarity-android-arm64](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-android-arm64) |
+| Android, 32-bit (Termux) | [rupeeclarity-android-armv7](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/rupeeclarity-android-armv7) |
+
+Checksums are in [SHA256SUMS.txt](https://github.com/PrafullJ0shi/RupeeClarity/releases/latest/download/SHA256SUMS.txt).
+
+### Windows
+
+- **Double-click:** download `rupeeclarity-windows-x64.exe` and double-click it. If SmartScreen shows "Windows protected your PC", click **More info → Run anyway** (the program is not code-signed).
+- **PowerShell one-liner** (installs to `%LOCALAPPDATA%\RupeeClarity` and starts it):
+
+  ```powershell
+  irm https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/install.ps1 | iex
+  ```
+
+### macOS and Linux
+
+One line, which picks the right file, installs it as `rupeeclarity` and starts it:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/install.sh | bash
+```
+
+Or download the file yourself and run:
+
+```bash
+chmod +x rupeeclarity-linux-x64        # or rupeeclarity-macos-universal
+./rupeeclarity-linux-x64
+```
+
+**macOS Gatekeeper:** the program is not notarized, so macOS may say it "cannot be opened because the developer cannot be verified". The install script clears that flag for you. For a manual download, run `xattr -d com.apple.quarantine rupeeclarity-macos-universal` once, or right-click the file in Finder and choose **Open**.
+
+### Android
+
+- **Quickest:** open [prafullj0shi.github.io/RupeeClarity](https://prafullj0shi.github.io/RupeeClarity/) in Chrome on the phone. Nothing to install.
+- **As a real terminal program:** install **Termux** from [F-Droid](https://f-droid.org/packages/com.termux/) (the Play Store version is outdated), open it and run:
+
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/install.sh | bash
+  ```
+
+  After that, type `rupeeclarity` in Termux to start it again. The script picks the 64-bit or 32-bit build for your phone.
+
+Set `RC_NO_RUN=1` before `bash` to install without starting the program.
 
 ## Screenshots
 
@@ -139,6 +216,12 @@ gcc src/rupeeclarity.c -o rupeeclarity -lm
 
 For a strict build: `gcc -std=c99 -Wall -Wextra src/rupeeclarity.c -o rupeeclarity -lm` (compiles with no warnings).
 
+Run the scripted tests of every module and the invalid-input cases with `python3 tests/test_cli.py ./rupeeclarity`.
+
+### Web version
+
+With [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) on your `PATH`, `bash web/build.sh` rebuilds `web/rupeeclarity.js` and `web/rupeeclarity.wasm`. To try it locally, run `python3 -m http.server -d web 8000` and open <http://localhost:8000>.
+
 ### Windows (MinGW-w64)
 
 ```bat
@@ -154,8 +237,19 @@ Choose a module by number, enter the values when asked, and press ENTER to retur
 RupeeClarity/
 ├── .devcontainer/
 │   └── devcontainer.json         # GitHub Codespaces setup (GCC preinstalled)
+├── .github/workflows/
+│   ├── ci.yml                    # compiles with -Wall -Wextra and runs the tests on every push
+│   ├── pages.yml                 # publishes web/ to GitHub Pages
+│   └── release.yml               # on a v* tag: builds the downloads and attaches them to a Release
 ├── src/
 │   └── rupeeclarity.c            # complete program (single file)
+├── web/                          # browser version (WebAssembly + xterm.js)
+│   ├── index.html, app.js, style.css
+│   ├── rupeeclarity.js, rupeeclarity.wasm   # built by web/build.sh
+│   ├── build.sh
+│   └── vendor/                   # xterm.js (MIT)
+├── tests/
+│   └── test_cli.py               # scripted tests of every module and invalid input
 ├── docs/
 │   ├── RupeeClarity_Project_Report.docx
 │   ├── RupeeClarity_Project_Report.pdf
@@ -169,6 +263,8 @@ RupeeClarity/
 │   └── screenshots/              # console captures and charts
 ├── samples/
 │   └── sample_report.txt         # output of module 9
+├── install.sh                    # one-line installer: Linux, macOS, Android (Termux)
+├── install.ps1                   # one-line installer: Windows (PowerShell)
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md
@@ -188,17 +284,15 @@ P = principal (Rs), R = annual rate (%), T = time (years), n = compounding perio
 
 ## Known limitations
 
-- A decimal menu choice such as `2.5` is accepted as `2`.
-- Inputs such as `12abc` (read as 12) and `inf` are accepted, because input is parsed with `sscanf`.
-- Returning to the menu needs ENTER to be pressed twice after some modules.
-- If standard input reaches end-of-file (for example, piped input runs out), the menu loop does not terminate.
 - The year table uses whole years only and is capped at 30 rows.
 - The `≈` sign in the Formula Vault may display incorrectly in older Windows consoles that are not set to UTF-8.
+- Module 9 overwrites `rupeeclarity_report.txt` each time; it keeps only the latest calculation.
+- The downloadable programs are not code-signed, so Windows SmartScreen and macOS Gatekeeper show a warning the first time.
+
+Fixed in v1.2: every input is now read as a whole line and checked with `strtol` / `strtod`, so `2.5` at the menu, `12abc`, `inf`, `nan` and empty lines are rejected; one ENTER returns to the menu; and end of input (Ctrl+D, Ctrl+Z or the end of piped input) exits cleanly.
 
 ## Roadmap
 
-- Read whole lines with `fgets` and parse with `strtod` / `strtol` to reject partial or non-finite input.
-- Single-ENTER pause and clean exit on end-of-file.
 - Monthly SIP / recurring-deposit calculator and inflation-adjusted returns.
 - Appending multiple calculations to one report, with a timestamp.
 - Exporting the year table as CSV for spreadsheets.
