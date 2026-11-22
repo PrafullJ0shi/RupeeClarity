@@ -5,6 +5,13 @@
 ![Language: C](https://img.shields.io/badge/language-C-00599C?logo=c&logoColor=white)
 ![Standard: C99](https://img.shields.io/badge/standard-C99-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PrafullJ0shi/RupeeClarity)
+
+![RupeeClarity demo: main menu, Compare SI and CI, Year-by-Year Table](docs/demo/demo-preview.gif)
+
+**▶ [Watch the full demo video](docs/demo/RupeeClarity_Demo.mp4)** (8 min 47 s, 1080p). It is a real terminal session of the compiled program. It shows the build, every module from 1 to 11, the saved report file, input validation and exit.
+
+**Try it in your browser, no install needed:** see [Run it online](#run-it-online-no-install).
 
 ---
 
@@ -42,6 +49,65 @@ The extra Rs 100 is not a rounding error: it is the first year's Rs 1,000 intere
 | 10 | Formula Vault | Every formula used, with variable meanings |
 | 11 | About / Project Card | Project and academic details |
 | 0 | Exit | Leaves the program |
+
+## Demo video
+
+[`docs/demo/RupeeClarity_Demo.mp4`](docs/demo/RupeeClarity_Demo.mp4) is a complete walkthrough recorded from a real terminal session (1920×1080, H.264). Chapters:
+
+| Time | Section |
+|---|---|
+| 0:00 | Intro |
+| 0:09 | Build: project files, `gcc src/rupeeclarity.c -o rupeeclarity -lm`, first run |
+| 0:46 | Main menu |
+| 0:52 | Module 1: Simple Interest Lab (10000 @ 10% × 2 yrs; 25000 @ 7.5% × 3 yrs) |
+| 1:24 | Module 2: Compound Interest Lab, yearly, half-yearly, quarterly and monthly |
+| 2:37 | Module 3: Compare SI and CI (SI 2000.00 vs CI 2100.00, extra 100.00) |
+| 3:17 | Module 4: Year-by-Year Table (10 years yearly; 6 years quarterly) |
+| 4:00 | Module 5: Goal Check (target reached by both, by CI only, by neither) |
+| 5:01 | Module 6: What-If Rate +1% |
+| 5:22 | Module 7: Years to Double (Rule of 72) at 8% and 12% |
+| 5:47 | Module 8: Story Mode |
+| 6:10 | Module 9: Save Report File, then `cat rupeeclarity_report.txt` |
+| 6:58 | Module 10: Formula Vault |
+| 7:11 | Module 11: About / Project Card |
+| 7:26 | Input validation: out-of-range menu choices, letters, negative and zero values |
+| 8:30 | Exit |
+| 8:39 | Outro |
+
+GitHub plays MP4 files in the browser. If it asks you to download instead, use **View raw**.
+
+## Run it online (no install)
+
+You need only a web browser.
+
+### Option 1: GitHub Codespaces (recommended)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PrafullJ0shi/RupeeClarity)
+
+1. Sign in to GitHub. Click the badge above, or open this repository and choose **Code → Codespaces → Create codespace on main**.
+2. Wait for the codespace to start. The repository includes a [`.devcontainer`](.devcontainer/devcontainer.json) configuration with GCC preinstalled, and it compiles the program automatically.
+3. In the terminal at the bottom of the page, run:
+
+   ```bash
+   gcc src/rupeeclarity.c -o rupeeclarity -lm && ./rupeeclarity
+   ```
+
+Personal GitHub accounts get a free monthly allowance of Codespaces usage. To save that allowance, stop the codespace when you finish (**Code → Codespaces → ⋯ → Stop codespace**).
+
+### Option 2: An online C compiler (no account needed)
+
+1. Open the source in raw form: [`src/rupeeclarity.c` (raw)](https://raw.githubusercontent.com/PrafullJ0shi/RupeeClarity/main/src/rupeeclarity.c). Select all of it and copy it.
+2. Open one of these online compilers and make sure the language is **C**:
+   - [OnlineGDB, Online C Compiler](https://www.onlinegdb.com/online_c_compiler)
+   - [Programiz, Online C Compiler](https://www.programiz.com/c-programming/online-compiler/)
+3. Delete the sample code in the editor, paste RupeeClarity's code, and press **Run**.
+4. Type your menu choices and values in the console/output panel and press ENTER after each one. The program is interactive and reads from the keyboard, just as it does in a local terminal.
+
+Notes for online compilers:
+
+- The program uses `pow()` from `math.h`. If the build fails with `undefined reference to 'pow'`, add `-lm` to the extra compiler flags. In OnlineGDB, that field is in the settings (gear icon).
+- The program clears the screen with `system("clear")`. Some web consoles cannot clear the screen, so you may see a line like `TERM environment variable not set.` or the old output may stay above the new screen. Neither affects the calculations.
+- Module 9 saves `rupeeclarity_report.txt` in the online compiler's temporary sandbox. To keep it, use Codespaces or a local build.
 
 ## Screenshots
 
@@ -86,6 +152,8 @@ Choose a module by number, enter the values when asked, and press ENTER to retur
 
 ```
 RupeeClarity/
+├── .devcontainer/
+│   └── devcontainer.json         # GitHub Codespaces setup (GCC preinstalled)
 ├── src/
 │   └── rupeeclarity.c            # complete program (single file)
 ├── docs/
@@ -95,6 +163,9 @@ RupeeClarity/
 │   ├── RupeeClarity_Synopsis.pdf
 │   ├── RupeeClarity_Presentation.pptx
 │   ├── RupeeClarity_Presentation.pdf
+│   ├── demo/
+│   │   ├── RupeeClarity_Demo.mp4     # full feature demo video
+│   │   └── demo-preview.gif          # short preview used in this README
 │   └── screenshots/              # console captures and charts
 ├── samples/
 │   └── sample_report.txt         # output of module 9

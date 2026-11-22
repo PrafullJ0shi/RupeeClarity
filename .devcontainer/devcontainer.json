@@ -1,0 +1,14 @@
+{
+  "name": "RupeeClarity (C / GCC)",
+  "image": "mcr.microsoft.com/devcontainers/cpp:1-debian-12",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-vscode.cpptools"]
+    },
+    "codespaces": {
+      "openFiles": ["README.md", "src/rupeeclarity.c"]
+    }
+  },
+  "postCreateCommand": "gcc src/rupeeclarity.c -o rupeeclarity -lm",
+  "postAttachCommand": "echo 'RupeeClarity is built. Run it with: ./rupeeclarity'"
+}
