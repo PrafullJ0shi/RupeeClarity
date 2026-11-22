@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile with all warnings as errors
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then CC=clang; else CC=gcc; fi
+          $CC -std=c99 -Wall -Wextra -Werror -O2 src/rupeeclarity.c -o rupeeclarity -lm
+
+      - name: Run module tests (scripted input)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p /tmp/rc && cd /tmp/rc
+          python3 "$GITHUB_WORKSPACE/tests/test_cli.py" "$GITHUB_WORKSPACE/rupeeclarity"
+
+  web:
+    name: WebAssembly build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mymindstorm/setup-emsdk@v14
+      - name: Build web version
+        run: bash web/build.sh
