@@ -253,6 +253,8 @@ RupeeClarity/
 ├── docs/
 │   ├── RupeeClarity_Project_Report.docx
 │   ├── RupeeClarity_Project_Report.pdf
+│   ├── RupeeClarity_Project_Documentation.docx
+│   ├── RupeeClarity_Project_Documentation.pdf
 │   ├── RupeeClarity_Synopsis.docx
 │   ├── RupeeClarity_Synopsis.pdf
 │   ├── RupeeClarity_Presentation.pptx
@@ -309,6 +311,7 @@ The full project report (analysis, design diagrams, test cases, security notes a
 | Document | Formats |
 |---|---|
 | Project Report | [PDF](docs/RupeeClarity_Project_Report.pdf) · [DOCX](docs/RupeeClarity_Project_Report.docx) |
+| Project Documentation (USCS BCA-I format) | [PDF](docs/RupeeClarity_Project_Documentation.pdf) · [DOCX](docs/RupeeClarity_Project_Documentation.docx) |
 | Project Synopsis | [PDF](docs/RupeeClarity_Synopsis.pdf) · [DOCX](docs/RupeeClarity_Synopsis.docx) |
 | Presentation | [PDF](docs/RupeeClarity_Presentation.pdf) · [PPTX](docs/RupeeClarity_Presentation.pptx) |
 
