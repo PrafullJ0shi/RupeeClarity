@@ -299,6 +299,23 @@ Fixed in v1.2: every input is now read as a whole line and checked with `strtol`
 - Appending multiple calculations to one report, with a timestamp.
 - Exporting the year table as CSV for spreadsheets.
 
+## V2 roadmap
+
+Planned for V2, not shipped. The roadmap above lists small additions; V2 widens RupeeClarity from savings interest to the borrowing decisions where a clear explanation saves people the most money. Every new module keeps the V1 habit of showing the working, not only the answer.
+
+1. **Flat-rate decoder.** Enter a loan's quoted flat rate, tenure and processing fee, and see the equivalent reducing-balance rate, the EMI and the annual percentage rate (APR), with the working. *Users:* compare a flat-rate quote with a bank's reducing-balance quote on equal terms, as the APR figure in a lender's Key Facts Statement is meant to allow.
+2. **EMI and prepayment planner.** A full amortisation schedule and the effect of a part-prepayment on either the tenure or the EMI. *Users:* see how much interest an early payment really saves.
+3. **Floating-rate what-if.** Show how the EMI or the tenure changes when a floating rate moves up or down by a chosen step. *Users:* plan for rate changes before they arrive.
+4. **Credit card minimum-due trap.** How long a card balance takes to clear when paying only the minimum due, and the total interest paid. *Users:* one of the most expensive habits, made visible.
+5. **Fixed deposit after tax.** Post-tax yield for cumulative and payout deposits at the user's tax slab, including the TDS effect, for rates the user enters. *Users:* compare deposits by what actually reaches them. No live bank rates are claimed.
+6. **Story Mode in more languages.** Explanations and menu labels in Hindi and other Indian languages through one string table. *Users:* learn the idea in the language they think in. *Developers:* add a language with one file and no code change.
+7. **Shareable and printable results.** The web version keeps inputs in the link, so a calculation can be shared or bookmarked, and prints a one-page sheet with the working. *Users:* send a family member the exact numbers.
+8. **Worksheet generator for teachers.** Random SI, CI and EMI problems with step-by-step answer keys, at a chosen difficulty. *Teachers and tutors:* ready practice sets. *Revenue:* the generator stays free; printable themed packs can be sold.
+9. **libclarity for developers.** The formulas as a small, tested C library with a WebAssembly build and an npm package, with rupee rounding rules documented. *Developers:* exact, auditable maths inside their own apps.
+10. **Embeddable calculator widget.** A drop-in widget for finance blogs and personal-finance creators. *Revenue:* free with a visible credit; a paid white-label version without it. No lender affiliate links, so the explanations stay neutral.
+
+**Order.** V2.0: items 1, 2, 4, 7 and 9. V2.1: items 3, 5, 6, 8 and 10.
+
 ## Academic context
 
 Developed as the mini project for **Programming in C Lab (BCA-C112)**, BCA-I, session 2026-27, at the Uttaranchal School of Computing Sciences (USCS), Uttaranchal University, Dehradun.
